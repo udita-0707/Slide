@@ -1,6 +1,6 @@
-import createAutomation from "@/components/global/create-automation"
+'use server'
 import { onCurrentUser } from "../user"
-import { getAutomations, findAutomation } from "./queries"
+import {addKeyWord, addTrigger, createAutomation, deleteKeywordQuery, findAutomation, getAutomations, updateAutomation } from "./queries"
 
 export const createAutomations = async (id?: string) => {
     const user = await onCurrentUser()
@@ -36,3 +36,62 @@ export const createAutomations = async (id?: string) => {
       return { status: 500 }
     }
   }
+
+  export const updateAutomationName = async (
+    automationId: string,
+    data: {
+      name?: string
+      active?: boolean
+      automation?: string
+    }
+  ) => {
+    await onCurrentUser()
+    try {
+      const update = await updateAutomation(automationId, data)
+      if (update) {
+        return { status: 200, data: 'Automation successfully updated' }
+      }
+      return { status: 404, data: 'Oops! could not find automation' }
+    } catch (error) {
+      return { status: 500, data: 'Oops! something went wrong' }
+    }
+  }
+
+  export const saveTrigger = async (automationId: string, trigger: string[]) => {
+    await onCurrentUser()
+    try {
+      const create = await addTrigger(automationId, trigger)
+      if (create) return { status: 200, data: 'Trigger saved' }
+      return { status: 404, data: 'Cannot save trigger' }
+    } catch (error) {
+      return { status: 500, data: 'Oops! something went wrong' }
+    }
+  }
+  export const saveKeyword = async (automationId: string, keyword: string) => {
+    await onCurrentUser()
+    try {
+      const create = await addKeyWord(automationId, keyword)
+  
+      if (create) return { status: 200, data: 'Keyword added successfully' }
+  
+      return { status: 404, data: 'Cannot add this keyword' }
+    } catch (error) {
+      return { status: 500, data: 'Oops! something went wrong' }
+    }
+  }
+  
+  export const deleteKeyword = async (id: string) => {
+    await onCurrentUser()
+    try {
+      const deleted = await deleteKeywordQuery(id)
+      if (deleted)
+        return {
+          status: 200,
+          data: 'Keyword deleted',
+        }
+      return { status: 404, data: 'Keyword not found' }
+    } catch (error) {
+      return { status: 500, data: 'Oops! something went wrong' }
+    }
+  }
+  

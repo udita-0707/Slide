@@ -1,10 +1,9 @@
-// 'use client'
+'use client'
 import { ChevronRight, PencilIcon } from 'lucide-react'
 import React from 'react'
-// import ActivateAutomationButton from '../../activate-automation-button'
-// import { useQueryAutomation } from '@/hooks/user-queries'
-// import { useEditAutomation } from '@/hooks/use-automations'
-// import { useMutationDataState } from '@/hooks/use-mutation-data'
+import { useQueryAutomation } from '@/hooks/user-queries'
+import {useEditAutomation}  from '@/hooks/use-automation'
+import { useMutationDataState } from '@/hooks/use-mutation-data'
 import { Input } from '@/components/ui/input'
 import ActivateAutomationButton from '../../activate-automation-button'
 
@@ -13,14 +12,14 @@ type Props = {
 }
 
 const AutomationsBreadCrumb = ({ id }: Props) => {
-//   const { data } = useQueryAutomation(id)
-//   const { edit, enableEdit, inputRef, isPending } = useEditAutomation(id)
+  const { data } = useQueryAutomation(id)
+  const { edit, enableEdit, inputRef, isPending } = useEditAutomation(id)
 
-//   const { latestVariable } = useMutationDataState(['update-automation'])
+  const { latestVariable } = useMutationDataState(['update-automation'])
 
   return (
     <div className="rounded-full w-full p-5 bg-[#18181B1A] flex items-center">
-        <div className="flex items-center gap-x-3 min-w-0">
+        {/* <div className="flex items-center gap-x-3 min-w-0">
         <p className="text-[#9B9CA0] truncate">Automations</p>
         <ChevronRight
           className="flex-shrink-0"
@@ -36,9 +35,9 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
               <PencilIcon size={14} />
             </span>
         </span>
-        </div>
+        </div> */}
 
-        <div className="flex items-center gap-x-5 ml-auto">
+        {/* <div className="flex items-center gap-x-5 ml-auto">
             <p className="hidden md:block text-text-secondary/60 text-sm truncate min-w-0">
             All states are automatically saved
             </p>
@@ -48,8 +47,8 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
           </p>
         </div>
         </div>
-        <ActivateAutomationButton id={id} /> 
-      {/* <div className="flex items-center gap-x-3 min-w-0">
+        <ActivateAutomationButton id={id} />  */}
+      <div className="flex items-center gap-x-3 min-w-0">
         <p className="text-[#9B9CA0] truncate">Automations</p>
         <ChevronRight
           className="flex-shrink-0"
@@ -93,8 +92,8 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
             Changes Saved
           </p>
         </div>
-      </div> */}
-      {/* <ActivateAutomationButton id={id} /> */}
+      </div>
+      <ActivateAutomationButton id={id} />
     </div>
   )
 }

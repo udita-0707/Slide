@@ -19,23 +19,23 @@ export const createAutomation = async (clerkId: string, id?: string) => {
 }
 
 export const getAutomations = async (clerkId: string) => {
-    return await client.user.findUnique({
-      where: {
-        clerkId,
-      },
-      select: {
-        automations: {
-          orderBy: {
-            createdAt: 'asc',
-          },
-          include: {
-            keywords: true,
-            listener: true,
-          },
+  return await client.user.findUnique({
+    where: {
+      clerkId,
+    },
+    select: {
+      automations: {
+        orderBy: {
+          createdAt: 'asc',
+        },
+        include: {
+          keywords: true,
+          listener: true,
         },
       },
-    })
-  }
+    },
+  })
+}
 
   export const findAutomation = async (id: string) => {
     return await client.automation.findUnique({
@@ -122,25 +122,48 @@ export const getAutomations = async (clerkId: string) => {
     })
   }
   
-  // export const addPost = async (
-  //   autmationId: string,
-  //   posts: {
-  //     postid: string
-  //     caption?: string
-  //     media: string
-  //     mediaType: 'IMAGE' | 'VIDEO' | 'CAROSEL_ALBUM'
-  //   }[]
-  // ) => {
-  //   return await client.automation.update({
-  //     where: {
-  //       id: autmationId,
-  //     },
-  //     data: {
-  //       posts: {
-  //         createMany: {
-  //           data: posts,
-  //         },
-  //       },
-  //     },
-  //   })
-  // }
+  export const addPost = async (
+    autmationId: string,
+    posts: {
+      postid: string
+      caption?: string
+      media: string
+      mediaType: 'IMAGE' | 'VIDEO' | 'CAROSEL_ALBUM'
+    }[]
+  ) => {
+    return await client.automation.update({
+      where: {
+        id: autmationId,
+      },
+      data: {
+        posts: {
+          createMany: {
+            data: posts,
+          },
+        },
+      },
+    })
+  }
+
+  export const addListener = async (
+    automationId: string,
+    listener: 'SMARTAI' | 'MESSAGE',
+    prompt: string,
+    reply?: string
+  ) => {
+    return await client.automation.update({
+      where: {
+        id: automationId,
+      },
+      data: {
+        listener: {
+          create: {
+            listener,
+            prompt,
+            commentReply: reply,
+          },
+        },
+      },
+    })
+  }
+  

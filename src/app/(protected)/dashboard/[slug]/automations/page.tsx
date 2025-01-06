@@ -31,7 +31,7 @@ const Page = (props: Props) => {
                     Direct traffic towards website
                   </h3>
                   <p className="text-text-secondary text-sm">
-                    January 2nd 2025
+                    October 5th 2024
                   </p>
                 </div>
                 <Check />

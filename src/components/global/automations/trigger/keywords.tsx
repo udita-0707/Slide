@@ -24,12 +24,17 @@ export const Keywords = ({ id }: Props) => {
           data?.data?.keywords.length > 0 &&
           data?.data?.keywords.map(
             (word) =>
-              word.id !== latestVariable.variables.id && (
+              word.id !== latestVariable?.variables?.id && (
                 <div
                   className="bg-background-90 flex items-center gap-x-2 capitalize text-text-secondary py-1 px-4 rounded-full"
                   key={word.id}
                 >
                   <p>{word.word}</p>
+                  <X
+                    size={20}
+                    onClick={() => deleteMutation({id: word.id})}
+                    className="cursor-pointer"
+                  />
                 </div>
               )
           )}
@@ -40,9 +45,9 @@ export const Keywords = ({ id }: Props) => {
         )}
         <Input
           placeholder="Add keyword..."
-          style={{
-            width: Math.min(Math.max(keyword.length || 10, 2), 50) + 'ch',
-          }}
+          // style={{
+          //   width: Math.min(Math.max(keyword.length || 10, 2), 50) + 'ch',
+          // }}
           value={keyword}
           className="p-0 bg-transparent ring-0 border-none outline-none"
           onChange={onValueChange}
